@@ -28,19 +28,12 @@ export default {
     let bookslist = ref ( [])
     function getBooksByAPI () {
       axios.get('https://gutendex.com/books/').
-      then((response) => {bookslist.value = response.data.results})
-      console.log(bookslist)
-      // catch(error => console.log(error));
-      // console.log('bookslist.value', bookslist)
-      // console.log('response', response)
-      // console.log('response.data', response.data)
-      // then((response) => {console.log(response.data.results)})
+      then((response) => {bookslist.value = response.data.results}).
+      catch(error => console.log(error));
     }
-
   return {
       bookslist,
     getBooksByAPI,
-
   }
 
   }
