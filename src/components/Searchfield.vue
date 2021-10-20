@@ -1,9 +1,12 @@
 <template>
-  <q-input filled v-model="text" label="Поищи мной книгу или автора" :dense="dense">
+  <q-input filled
+           v-model="text"
+           label="Поищи мной книгу или автора (на английском). Например: war tolstoy"
+           >
 
     <template v-slot:append>
       <q-icon v-if="text !== ''" name="close" @click="text = ''" class="cursor-pointer" />
-      <q-icon name="search" @click="searchItem" />
+      <q-icon v-model="text" name="search" @click="$emit('doSearch', text)" />
     </template>
 
   </q-input>
@@ -16,23 +19,13 @@ export default {
   name: "Searchfield",
 
   setup () {
+    let text = ref('')
 
-    const searchItem = () => {
-      console.log('SEARCH CLICK')
-    }
-
-    return {
-      // searchItem: function (),
-      text: ref(''),
-      ph: ref(''),
-      dense: ref(false)
-    }
+    return { text }
   }
 }
 </script>
 
 <style lang="sass" scoped>
-.my-card
-  width: 100%
-  max-width: 250px
+
 </style>
