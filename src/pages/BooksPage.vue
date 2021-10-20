@@ -20,19 +20,21 @@
 
 <script>
 import axios from "axios";
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 export default {
   name: "BooksPage",
   setup () {
-    let bookslist = ref([])
+    let bookslist = ref ( [])
     function getBooksByAPI () {
       axios.get('https://gutendex.com/books/').
-      then((response) => {bookslist.value = response.results}).
-      catch(error => console.log(error));
-      console.log('bookslist.value', bookslist.value)
+      then((response) => {bookslist.value = response.data.results})
+      console.log(bookslist)
+      // catch(error => console.log(error));
+      // console.log('bookslist.value', bookslist)
       // console.log('response', response)
       // console.log('response.data', response.data)
+      // then((response) => {console.log(response.data.results)})
     }
 
   return {
