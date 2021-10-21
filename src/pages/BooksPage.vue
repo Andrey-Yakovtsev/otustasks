@@ -6,7 +6,8 @@
     <div class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card" v-for="book in bookslist" :key="book.id">
         <!--      <q-skeleton v-if="!img" height="200px" square /> TODO приделать лоадер-->
-        <img :src="`https://www.gutenberg.org/cache/epub/${book.id}/pg${book.id}.cover.medium.jpg`">
+<!--        <img :src="`https://www.gutenberg.org/cache/epub/${book.id}/pg${book.id}.cover.medium.jpg`">-->
+        <img :src="book.formats['image/jpeg']">
         <q-card-section>
           <div class="text-h6">{{book.title}}</div>
           <div class="text-subtitle2">by {{book.authors[0].name}}</div>
@@ -26,8 +27,17 @@ import { ref, reactive } from 'vue'
 
 export default {
   name: "BooksPage",
+  mounted() {
+    if (localStorage.bookslist) {
+      this.bookslist = localStorage.bookslist
+    }
+  },
+  watch: {
+
+  },
+
   setup () {
-    let bookslist = ref ( [])
+    let bookslist = ref ([])
     function getBooksByAPI () {
       axios.get('https://gutendex.com/books/').
       then((response) => {bookslist.value = response.data.results}).
@@ -37,7 +47,6 @@ export default {
       bookslist,
       getBooksByAPI,
     }
-
   }
 
 

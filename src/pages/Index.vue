@@ -20,7 +20,7 @@
     <div v-if="searchResult.length > 0" class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card" v-for="book in searchResult" :key="book.id">
         <router-link :to="{path: `/books/${book.id}`}">
-        <img :src="`https://www.gutenberg.org/cache/epub/${book.id}/pg${book.id}.cover.medium.jpg`">
+        <img :src="book.formats['image/jpeg']">
     </router-link>
         <q-card-section>
           <div class="text-h6">{{book.title}}</div>
