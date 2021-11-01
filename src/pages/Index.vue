@@ -15,7 +15,13 @@
           @click="findDickens"
           style="background: #4caf50; color: white" label="Books by Dickens" />
       </div>
-
+    </q-card>
+    <q-card>
+      <q-card-section>
+        <q-btn
+          @click="putBooksToStore"
+        >Put books to store</q-btn>
+      </q-card-section>
     </q-card>
     <div v-if="searchResult.length > 0" class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card" v-for="book in searchResult" :key="book.id">
@@ -24,7 +30,7 @@
     </router-link>
         <q-card-section>
           <div class="text-h6">{{book.title}}</div>
-          <div class="text-subtitle2">by {{book.authors[0].name}}</div>
+          <div class="text-subtitle2">by {{book.authors.length > 0? book.authors[0].name : 'Unknown author' }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -36,7 +42,8 @@
 </template>
 
 <script>
-import {defineComponent, ref} from 'vue';
+import {defineComponent, ref, onMounted} from 'vue';
+import { useStore } from 'vuex'
 import Searchfield from "components/Searchfield";
 import axios from "axios";
 
@@ -45,12 +52,13 @@ export default defineComponent({
   components: {Searchfield},
 
   setup () {
+    const store = useStore()
     let searchResult = ref([])
+    let storedBooks = ref([])
     let query = ref('')
 
     function runSearch (query) {
       const words = query.split(' ')
-      console.log('words==>', words[0], words[1])
       axios.get(`https://gutendex.com/books?search=${words[0]}%20${words[1]}`).
       then((response) => {searchResult.value = response.data.results}).
       catch(error => console.log(error));
@@ -62,8 +70,24 @@ export default defineComponent({
     function findDickens () {
       runSearch ('dickens charles')
     }
+    function getTop10Books () {
+      if (storedBooks.length === 0) {
+      axios.get('https://gutendex.com/books/').
+      then((response) => {searchResult.value = response.data.results}).
+      catch(error => console.log(error));
+      console.log('searchResult.value', searchResult.value)
+    }
+      else {return storedBooks}
+    }
+    function putBooksToStore () {
+      // TODO Положить книжки в стор
+    }
+
+    onMounted(getTop10Books)
 
     return {
+      store,
+      storedBooks,
       searchResult,
       query,
       runSearch,
