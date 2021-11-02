@@ -3,6 +3,13 @@
     <q-card flat class="my-search">
       <Searchfield @doSearch="runSearch"/>
     </q-card>
+    <q-card flat >
+      <q-card-section>
+        <div>
+          Store Lenght = {{store.state.booksInState.length}}
+        </div>
+      </q-card-section>
+    </q-card>
     <q-card flat class="rounded-borders popularsearch">
       <div class="q-pa-md q-gutter-sm">
         <div>
@@ -55,14 +62,13 @@ export default defineComponent({
     const store = useStore()
     let searchResult = ref([])
     let storedBooks = ref([])
-    let query = ref('')
+        let query = ref('')
 
     function runSearch (query) {
       const words = query.split(' ')
       axios.get(`https://gutendex.com/books?search=${words[0]}%20${words[1]}`).
       then((response) => {searchResult.value = response.data.results}).
       catch(error => console.log(error));
-      console.log('searchResult.value', searchResult.value)
     }
     function findAlice () {
       runSearch ('alice wonder')
@@ -71,16 +77,20 @@ export default defineComponent({
       runSearch ('dickens charles')
     }
     function getTop10Books () {
-      if (storedBooks.length === 0) {
+      if (store.state.booksInState.length === 0) {
+        console.log('STORE IS EMPTY')
       axios.get('https://gutendex.com/books/').
       then((response) => {searchResult.value = response.data.results}).
       catch(error => console.log(error));
-      console.log('searchResult.value', searchResult.value)
+      console.log('searchResult.value==>', searchResult.value)
     }
-      else {return storedBooks}
+      else {return store.state.booksInState}
+      console.log('store.state.booksInState.length ==>', store.state.booksInState.length )
     }
-    function putBooksToStore () {
-      // TODO Положить книжки в стор
+
+    function putBooksToStore (searchResult) {
+      store.commit('setbooksInState', searchResult.value)
+      console.log('store.state.booksInState ==>', store.state.booksInState)
     }
 
     onMounted(getTop10Books)
@@ -92,7 +102,8 @@ export default defineComponent({
       query,
       runSearch,
       findAlice,
-      findDickens
+      findDickens,
+      putBooksToStore
 
     }
   }
