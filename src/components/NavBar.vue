@@ -12,7 +12,7 @@
         <q-route-tab to="/authors" name="authors" label="Авторы" />
 <!--        <q-route-tab to="/addbook" name="addbook" label="Добавить книгу" />-->
 <!--        <q-route-tab to="/addauthor" name="addauthor" label="Добавить автора" />-->
-        <q-route-tab to="/addtags" name="addtags" label="Добавить тэги" />
+        <q-route-tab :to="{name:'tagspage'}" label="Добавить тэги" />
       </q-tabs>
     </q-toolbar>
   </div>

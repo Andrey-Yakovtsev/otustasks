@@ -27,6 +27,12 @@
         <q-btn style="background: #01a86a; color: white"
                @click="addBooksToStore"
         >Дополнить стор</q-btn>
+        <q-btn style="background: #fa9f9e; color: white"
+               @click="addBooksToLocalStorage"
+        >Сохранить в LocalStorage</q-btn>
+        <q-btn style="background: #01a86a; color: white"
+               @click="getBooksFromLocalStorage"
+        >загрузить из  LocalStorage</q-btn>
         </div>
     </q-card>
     </q-card>
@@ -108,9 +114,15 @@ export default defineComponent({
       Array.prototype.push.apply(searchResult.value, store.state.booksInState)
       store.commit('setbooksInState', searchResult.value)
     }
+    function addBooksToLocalStorage () {
+      localStorage.books = JSON.stringify(searchResult.value)
+    }
+    function getBooksFromLocalStorage () {
+      searchResult.value = JSON.parse(localStorage.books)
+    }
 
     function checkStoreState () {
-      if (store.state.booksInState.length !== 0) {
+    if (store.state.booksInState.length > 0) {
         console.log('Loaded from STORE')
         searchResult.value = store.state.booksInState
         return searchResult.value
@@ -134,7 +146,9 @@ export default defineComponent({
       findDickens,
       deleteBookFromList,
       addBooksToStore,
-      updateStore
+      updateStore,
+      addBooksToLocalStorage,
+      getBooksFromLocalStorage
     }
   }
 })
