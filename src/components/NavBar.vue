@@ -8,10 +8,11 @@
 
       <q-tabs v-model="tab" shrink>
         <q-route-tab to="/" name="mail" label="Главная" />
-        <q-route-tab to="/books" name="books" label="Книги" />
+<!--        <q-route-tab to="/books" name="books" label="Книги" />-->
         <q-route-tab to="/authors" name="authors" label="Авторы" />
-        <q-route-tab to="/addbook" name="addbook" label="Добавить книгу" />
-        <q-route-tab to="/addauthor" name="addauthor" label="Добавить автора" />
+<!--        <q-route-tab to="/addbook" name="addbook" label="Добавить книгу" />-->
+<!--        <q-route-tab to="/addauthor" name="addauthor" label="Добавить автора" />-->
+        <q-route-tab to="/addtags" name="addtags" label="Добавить тэги" />
       </q-tabs>
     </q-toolbar>
   </div>

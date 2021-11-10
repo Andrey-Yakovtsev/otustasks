@@ -10,6 +10,7 @@ const routes = [
       { path: '/addauthor', component: () => import('pages/AddAuthorPage') },
       { path: '/addbook', component: () => import('pages/AddBookPage') },
       { path: '/books/:id', component: () => import('pages/SingleBookPage') },
+      { path: '/addtags', component: () => import('pages/AddTagsPage') },
     ]
   },
 
