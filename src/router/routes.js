@@ -8,7 +8,9 @@ const routes = [
       { path: '/books', component: () => import('pages/BooksPage') },
       { path: '/authors', component: () => import('pages/AuthorsPage') },
       { path: '/addauthor', component: () => import('pages/AddAuthorPage') },
-      { path: '/addbook', component: () => import('pages/AddBookPage') }
+      { path: '/addbook', component: () => import('pages/AddBookPage') },
+      { path: '/books/:id', component: () => import('pages/SingleBookPage') },
+      { path: '/addtags', name: 'tagspage', component: () => import('pages/AddTagsPage') },
     ]
   },
 
