@@ -120,7 +120,7 @@ export default defineComponent({
     function getBooksFromLocalStorage () {
       searchResult.value = JSON.parse(localStorage.books)
     }
-
+    // PR Update
     function checkStoreState () {
     if (store.state.booksInState.length > 0) {
         console.log('Loaded from STORE')
